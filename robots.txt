@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wenta0v0-dot.github.io/breakegg-guide/sitemap.xml
