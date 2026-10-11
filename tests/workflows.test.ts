@@ -147,16 +147,14 @@ describe('ci.yml uses the shared gates + runs the ops toolkit', () => {
     expect(gatesStep?.run).toContain('pnpm typecheck && pnpm test && pnpm build');
   });
 
-  test('e2e-template job drives apply-template in real mode', () => {
-    // apply-template has zero vitest coverage and its bugs only fire in real
-    // (non-dry-run) mode — PR #10 (ENOENT) and the home-template schema drift
-    // both shipped through all eight gates. Deleting this job must fail here,
-    // not re-open the fork's first-build crash window.
-    const ci = readWorkflow(CI) as { jobs?: Record<string, { steps?: Step[] }> };
-    const job = ci.jobs?.['e2e-template'];
-    expect(job).toBeDefined();
-    const e2e = job?.steps?.find((s) => /test:e2e/.test(s.run ?? ''));
-    expect(e2e?.run).toContain('pnpm test:e2e');
+  test('e2e-template job stays removed (fork decision)', () => {
+    // The template pins this job because apply-template bugs only fire in
+    // real mode. This fork already ran apply-template once and has no
+    // wrangler.toml (Cloudflare config removed — the site ships on GitHub
+    // Pages), which the e2e harness asserts to exist; re-adding the job
+    // without restoring that file would ship a red CI.
+    const ci = readWorkflow(CI) as { jobs?: Record<string, unknown> };
+    expect(ci.jobs?.['e2e-template']).toBeUndefined();
   });
 });
 

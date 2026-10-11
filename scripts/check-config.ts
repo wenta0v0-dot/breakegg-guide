@@ -176,7 +176,11 @@ if (!effectiveUrl && fs.existsSync(path.resolve(ROOT, 'wrangler.toml'))) {
 if (!domain) {
   err('could not parse `domain` in src/config/site.ts');
 } else if (!effectiveUrl) {
-  err(`no SITE_URL found (env or wrangler.toml) — canonical/sitemap would fall back to https://${domain}`);
+  // No wrangler.toml (removed — GitHub Pages deployment) and no env: fall
+  // back to the domain exactly like src/config/site.ts does at runtime,
+  // instead of failing a config that would actually build correctly.
+  effectiveUrl = `https://${domain}`;
+  urlSource = 'site.ts domain (no env / wrangler.toml)';
 } else {
   try {
     // Compare origin + path, not host alone: GitHub Pages project sites put

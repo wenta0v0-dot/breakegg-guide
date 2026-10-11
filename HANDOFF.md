@@ -45,7 +45,7 @@
 
 ## 4. 关键工程事实(改代码前必读)
 
-- **子路径部署**:站点在 `/breakegg-guide/` 子路径。`SITE_URL=https://wenta0v0-dot.github.io/breakegg-guide`(写入 wrangler.toml [vars] + site.ts domain),Astro `base` 从 SITE_URL 派生(astro.config.ts),内链统一走 `src/lib/url.ts` 的 `localizePath`(带 base),canonical/JSON-LD/RSS 走 `absoluteLocalized`/`canonicalUrl`(剥 base,防双重前缀)。**sitemap 的 URL 形如 /sitemap-index.xml,提交 Search Console 用这个**。
+- **子路径部署**:站点在 `/breakegg-guide/` 子路径。`SITE_URL=https://wenta0v0-dot.github.io/breakegg-guide`(写在 site.ts domain;Cloudflare 配置 wrangler.toml/_headers 已删,本站只走 GitHub Pages),Astro `base` 从 SITE_URL 派生(astro.config.ts),内链统一走 `src/lib/url.ts` 的 `localizePath`(带 base),canonical/JSON-LD/RSS 走 `absoluteLocalized`/`canonicalUrl`(剥 base,防双重前缀)。**sitemap 的 URL 形如 /sitemap-index.xml,提交 Search Console 用这个**。
 - **Pagefind 搜索**:三处子路径适配缺一不可——①SearchButton 内联脚本 `bundlePath` 选项;②`transpile-pagefind.mjs` 的 base-path 改写步骤(bundle 内默认 `"/pagefind/"` 回退会被改写);③HTML 里 UI 脚本 URL。搜索坏了先查这三处 + performance 面板里 pagefind-entry.json 的请求路径。
 - **发布产物追踪**:`.ship-manifest.json` 记录上次镜像的顶层条目(ship 脚本用它清过期产物),要提交。
 - **本机构建注意**: ancestor 目录 `C:\Users\勿忘\node_modules` 有个 CJS cookie@0.7.2 会污染向上解析,故 package.json 把 cookie@2.0.1 声明为直接依赖——别删。
@@ -78,7 +78,7 @@ pnpm test               # 单测;pnpm check-content 等内容门
 
 ## 8. 待办(按优先级)
 
-1. ~~部署~~ ✅ 2026-10-12 AnvilWiki 版上线(同 URL);换自定义域名时:改 site.ts domain + wrangler.toml + (若用 Actions)vars,重跑 ship
+1. ~~部署~~ ✅ 2026-10-12 AnvilWiki 版上线(同 URL);换自定义域名时:改 site.ts domain(及 SITE_URL 环境),重跑 ship
 2. ~~Search Console 提交~~ ✅ 已做(用户操作);sitemap 地址:`/sitemap-index.xml`(已提交版本指向旧 sitemap.xml 的话,在 Search Console 里补提交一次 sitemap-index.xml 即可)
 3. `pets` 分类 + 宠物图鉴:78 只需逐 biome 核实(游戏内截图或社区数据交叉验证),不抄竞品;加分类要同步 navigation.ts + en.json nav/overview + 目录
 4. 内容节奏:游戏每次更新后 24h 内更新 codes/guide 页(frontmatter lastModified + 核验日志加一行),需求是事件驱动的
