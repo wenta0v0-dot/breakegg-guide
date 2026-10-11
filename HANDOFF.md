@@ -79,8 +79,8 @@ pnpm test               # 单测;pnpm check-content 等内容门
 ## 8. 待办(按优先级)
 
 1. ~~部署~~ ✅ 2026-10-12 AnvilWiki 版上线(同 URL);换自定义域名时:改 site.ts domain + wrangler.toml + (若用 Actions)vars,重跑 ship
-2. `pets` 分类 + 宠物图鉴:78 只需逐 biome 核实(游戏内截图或社区数据交叉验证),不抄竞品;加分类要同步 navigation.ts + en.json nav/overview + 目录
-3. Search Console 提交(需 Google 账号):**sitemap 地址是 /sitemap-index.xml**;可顺手在仓库 Settings→Variables 配 `SITE_URL=https://wenta0v0-dot.github.io/breakegg-guide`(CI 会用它构建,非必需)
+2. ~~Search Console 提交~~ ✅ 已做(用户操作);sitemap 地址:`/sitemap-index.xml`(已提交版本指向旧 sitemap.xml 的话,在 Search Console 里补提交一次 sitemap-index.xml 即可)
+3. `pets` 分类 + 宠物图鉴:78 只需逐 biome 核实(游戏内截图或社区数据交叉验证),不抄竞品;加分类要同步 navigation.ts + en.json nav/overview + 目录
 4. 内容节奏:游戏每次更新后 24h 内更新 codes/guide 页(frontmatter lastModified + 核验日志加一行),需求是事件驱动的
 5. 候选表欠账:拍板记录(决定=做,10-12)+ itch 复测 + 终末地放弃标签——等用户的 Excel 关闭后写入 `../游戏攻略站选品候选表.xlsx`
 6. GK2(78 分)为第二候选:用户未拍板,若做则同款流程另立目录
