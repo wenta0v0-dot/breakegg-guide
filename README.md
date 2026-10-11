@@ -1,25 +1,39 @@
-# BreakEgg Guide
+# BreakEgg Guide — Break and Steal an Egg Wiki
 
-An unofficial, player-made guide site for the Roblox game **Break and Steal an Egg**.
+Unofficial, player-made English wiki for the Roblox game **Break and Steal an Egg**:
+how free rewards actually work (there are no text codes), a beginner's guide to the
+break-hatch-steal loop, and verified pet coverage.
 
-- Live: https://wenta0v0-dot.github.io/breakegg-guide/
-- No fake code lists — every claim is verified in-game and dated.
-- Pages: free rewards truth (`codes.html`), beginner guide (`guide.html`), pets & eggs database (`pets.html`, in progress).
+**Live**: https://wenta0v0-dot.github.io/breakegg-guide/
 
-## Local preview
+Built on the open-source [AnvilWiki](https://github.com/PNGTRID/AnvilWiki) template
+(Astro 7 + Tailwind + MDX + Pagefind), deployed on GitHub Pages at the
+`/breakegg-guide/` subpath.
+
+## Repo layout
+
+The repo root holds **both** the Astro source and the built site:
+
+- `src/`, `public/`, `scripts/` … — site source (content in `src/content/wiki/en/`)
+- `index.html`, `codes/`, `guides/`, `_astro/`, `pagefind/` … — build output,
+  mirrored from `dist/` by `scripts/ship.mjs` (GitHub Pages deploys the branch root)
+- `HANDOFF.md` — the complete project brief: verified facts, red lines, deploy flow,
+  engineering gotchas, roadmap. **Read it before changing anything.**
+
+## Commands
 
 ```bash
-python -m http.server 8765
-# open http://127.0.0.1:8765/
+pnpm install
+pnpm dev                # local dev at http://localhost:4321/breakegg-guide/
+node scripts/ship.mjs   # build + mirror dist/ → repo root (required before every push)
+pnpm test               # unit tests; also: check-content / check-links / check-i18n / check-config
 ```
 
-## Stack
-
-Static HTML + one CSS file. No JavaScript, no build step. Deploy anywhere.
+Publish = `node scripts/ship.mjs` → `git add -A` → commit → push (live in ~1 min).
 
 ## Content rules
 
-1. First paragraph answers the player's question directly.
-2. Every page carries a "Last checked" date.
-3. No fabricated game data — unverified facts stay out until verified.
-4. Unofficial fan site; not affiliated with Roblox Corporation or the game's developers.
+Every claim is verified and dated. No fabricated pets, values, or codes —
+see `HANDOFF.md` §2 for the verified-facts table and the red lines.
+
+Not affiliated with Roblox Corporation or the game's developer (ILGames x Eggs).
